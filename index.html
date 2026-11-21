@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+  <div class="otp-container">
+    <h1 class="title">Enter your password</h1>
+    <p class="subtitle">ENTER YOUR 4-DIGIT CODE</p>
+
+    <div class="dots" id="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="keypad">
+      <button class="key" data-num="1">
+        <span class="num">1</span>
+        <span class="letters">&nbsp;</span>
+      </button>
+      <button class="key" data-num="2">
+        <span class="num">2</span>
+        <span class="letters">ABC</span>
+      </button>
+      <button class="key" data-num="3">
+        <span class="num">3</span>
+        <span class="letters">DEF</span>
+      </button>
+
+      <button class="key" data-num="4">
+        <span class="num">4</span>
+        <span class="letters">GHI</span>
+      </button>
+      <button class="key" data-num="5">
+        <span class="num">5</span>
+        <span class="letters">JKL</span>
+      </button>
+      <button class="key" data-num="6">
+        <span class="num">6</span>
+        <span class="letters">MNO</span>
+      </button>
+
+      <button class="key" data-num="7">
+        <span class="num">7</span>
+        <span class="letters">PQRS</span>
+      </button>
+      <button class="key" data-num="8">
+        <span class="num">8</span>
+        <span class="letters">TUV</span>
+      </button>
+      <button class="key" data-num="9">
+        <span class="num">9</span>
+        <span class="letters">WXYZ</span>
+      </button>
+
+      <div class="empty"></div>
+
+      <button class="key" data-num="0">
+        <span class="num">0</span>
+        <span class="letters">+</span>
+        
+      </button>
+
+      <button class="key backspace" id="backspace">
+        <svg width="26" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+          <line x1="18" y1="9" x2="12" y2="15"></line>
+          <line x1="12" y1="9" x2="18" y2="15"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const dots = document.querySelectorAll('.dot');
+    const keys = document.querySelectorAll('.key[data-num]');
+    const backspace = document.getElementById('backspace');
+    let code = [];
+
+    function updateUI() {
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active', 'filled');
+        if (index < code.length) {
+          dot.classList.add('filled');
+        } else if (index === code.length) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    keys.forEach(key => {
+      key.addEventListener('click', () => {
+        if (code.length < 4) {
+          code.push(key.dataset.num);
+          updateUI();
+        }
+      });
+    });
+
+    backspace.addEventListener('click', () => {
+      if (code.length > 0) {
+        code.pop();
+        updateUI();
+      }
+    });
+  </script>
+</body>
+</html>
